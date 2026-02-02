@@ -1,0 +1,117 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+struct Candidate {
+    string name;
+    string party;
+    string policy;
+};
+
+void displayAll(Candidate c[], int n) {
+    cout << "\n--- Candidate List ---\n";
+    for (int i = 0; i < n; i++) {
+        cout << "\nCandidate " << i + 1 << endl;
+        cout << "Name   : " << c[i].name << endl;
+        cout << "Party  : " << c[i].party << endl;
+        cout << "Policy : " << c[i].policy << endl;
+    }
+}
+
+void searchByName(Candidate c[], int n) {
+    string searchName;
+    cout << "\nEnter candidate name to search: ";
+    cin.ignore();
+    getline(cin, searchName);
+
+    bool found = false;
+
+    for (int i = 0; i < n; i++) {
+        if (c[i].name == searchName) {
+            cout << "\nCandidate Found!\n";
+            cout << "Name   : " << c[i].name << endl;
+            cout << "Party  : " << c[i].party << endl;
+            cout << "Policy : " << c[i].policy << endl;
+            found = true;
+            break;
+        }
+    }
+
+    if (!found) {
+        cout << "\nCandidate not found.\n";
+    }
+}
+
+void searchByParty(Candidate c[], int n) {
+    string searchParty;
+    cout << "\nEnter party name to search: ";
+    cin.ignore();
+    getline(cin, searchParty);
+
+    bool found = false;
+
+    cout << "\nCandidates from " << searchParty << " party:\n";
+
+    for (int i = 0; i < n; i++) {
+        if (c[i].party == searchParty) {
+            cout << "\nName   : " << c[i].name << endl;
+            cout << "Policy : " << c[i].policy << endl;
+            found = true;
+        }
+    }
+
+    if (!found) {
+        cout << "\nNo candidates found for this party.\n";
+    }
+}
+
+int main() {
+    int n;
+
+    cout << "Enter number of candidates: ";
+    cin >> n;
+
+    Candidate candidates[n];
+
+    for (int i = 0; i < n; i++) {
+        cout << "\nEnter details for Candidate " << i + 1 << endl;
+        cin.ignore();
+        cout << "Name   : ";
+        getline(cin, candidates[i].name);
+        cout << "Party  : ";
+        getline(cin, candidates[i].party);
+        cout << "Policy : ";
+        getline(cin, candidates[i].policy);
+    }
+
+    int choice;
+    do {
+        cout << "\n--- Election Candidate Information System ---\n";
+        cout << "1. View all candidates\n";
+        cout << "2. Search candidate by name\n";
+        cout << "3. Search candidates by party\n";
+        cout << "4. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                displayAll(candidates, n);
+                break;
+            case 2:
+                searchByName(candidates, n);
+                break;
+            case 3:
+                searchByParty(candidates, n);
+                break;
+            case 4:
+                cout << "\nExiting program...\n";
+                break;
+            default:
+                cout << "\nInvalid choice. Try again.\n";
+        }
+    } 
+while (choice != 4);
+
+    return 0;
+}
